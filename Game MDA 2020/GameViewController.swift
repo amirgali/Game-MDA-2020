@@ -17,7 +17,18 @@ class GameViewController: UIViewController {
     func getShip() -> SCNNode {
         let scene = SCNScene(named: "art.scnassets/ship.scn")!
         let ship = scene.rootNode.childNode(withName: "ship", recursively: true)!
+        
+        // Move ship far away
+        let x = 25
+        let y = 25
+        let z = -105
+        ship.position = SCNVector3(x, y, z)
+        
         return ship.clone()
+    }
+    
+    func removeShip() -> <#return type#> {
+        <#function body#>
     }
     
     override func viewDidLoad() {
@@ -78,6 +89,7 @@ class GameViewController: UIViewController {
         scnView.scene?.rootNode.addChildNode(ship)
     }
     
+    // MARK: - Actions
     @objc
     func handleTap(_ gestureRecognize: UIGestureRecognizer) {
         // retrieve the SCNView
