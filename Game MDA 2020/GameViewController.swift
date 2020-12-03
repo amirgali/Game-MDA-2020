@@ -28,6 +28,12 @@ class GameViewController: UIViewController {
         let height = CGFloat(100)
         button.frame = CGRect(x: midX - width/2, y: midY - height/2, width: width, height: height)
         
+        // Configure button
+        button.backgroundColor = .red
+        button.layer.cornerRadius = 15
+        button.setTitle("Restart", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 40)
+        
         // Add button to the scene
         scnView.addSubview(button)
     }
