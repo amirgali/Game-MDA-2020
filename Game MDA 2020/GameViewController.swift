@@ -13,13 +13,13 @@ class GameViewController: UIViewController {
     
     // MARK: - Outlets
     let button = UIButton()
-    
+    let label = UILabel()
     
     
     // MARK: - Stored Properties
     var score = 0 {
         didSet {
-            print(#line, #function, score)
+            label.text = "Score: \(score)"
         }
     }
     var ship: SCNNode!
@@ -49,6 +49,15 @@ class GameViewController: UIViewController {
         scnView.addSubview(button)
     }
     
+    func addLabel() {
+        label.font = UIFont.systemFont(ofSize: 30)
+        label.frame = CGRect(x: 0, y: 0, width: scnView.frame.width, height: 100)
+        label.numberOfLines = 2
+        label.textAlignment = .center
+        scnView.addSubview(label)
+        score = 0
+    }
+    
     func addShip() {
         scene.rootNode.addChildNode(ship)
     }
@@ -71,6 +80,7 @@ class GameViewController: UIViewController {
             self.ship.removeFromParentNode()
             DispatchQueue.main.async {
                 self.button.isHidden = false
+                self.label.text = "Game Over \nScore: \(self.score)"                
             }
         }
         return ship
@@ -150,6 +160,7 @@ class GameViewController: UIViewController {
         
         // Add button
         addButton()
+        addLabel()
     }
     
     // MARK: - Actions
