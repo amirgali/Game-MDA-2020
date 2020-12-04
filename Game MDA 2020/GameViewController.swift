@@ -17,6 +17,7 @@ class GameViewController: UIViewController {
     
     
     // MARK: - Stored Properties
+    var duration: TimeInterval = 5
     var score = 0 {
         didSet {
             label.text = "Score: \(score)"
@@ -76,11 +77,11 @@ class GameViewController: UIViewController {
         ship.look(at: SCNVector3(2 * x, 2 * y, 2 * z))
         
         // Add animation to move the ship to origin
-        ship.runAction(.move(to: SCNVector3(), duration: 5)) {
+        ship.runAction(.move(to: SCNVector3(), duration: duration)) {
             self.ship.removeFromParentNode()
             DispatchQueue.main.async {
                 self.button.isHidden = false
-                self.label.text = "Game Over \nScore: \(self.score)"                
+                self.label.text = "Game Over \nScore: \(self.score)"
             }
         }
         return ship
@@ -88,6 +89,7 @@ class GameViewController: UIViewController {
     
     @objc func newGame() {
         button.isHidden = true
+        duration = 5
         score = 0
         ship = getShip()
         addShip()
@@ -187,6 +189,7 @@ class GameViewController: UIViewController {
             
             // on completion - unhighlight
             SCNTransaction.completionBlock = {
+                self.duration *= 0.9
                 self.score += 1
                 self.ship.removeFromParentNode()
                 self.ship = self.getShip()
